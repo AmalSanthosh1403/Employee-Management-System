@@ -1,3 +1,4 @@
+/* Employee Search Section */
 .employee-search-section {
     background-color: #fff;
     padding: 60px 60px;
@@ -87,3 +88,96 @@
         width: 100%;
     }
 }
+
+/* Header Section */
+.header-section {
+    background-color: #f8f9fa;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+}
+
+/* .header-container{
+    display: flex;
+    justify-content: space-between;
+} */
+
+.header-title {
+    color: #323842;
+    font: 700 36px/1.2 Sarabun, sans-serif;
+    margin: 0;
+}
+
+.header-title span {
+    color: #0ea89b;
+}
+
+.my-profile-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    background-color: #007bff; /* Blue color */
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* Forms Section */
+.form-container {
+    position: absolute;
+    max-width: 50%;
+    width: 90%;
+    margin-left: 25%;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.hidden {
+    display: none;
+    opacity: 0;
+    transform: scale(0.95);
+}
+
+.form-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.submit-btn {
+    padding: 12px 34px;
+    border: none;
+    border-radius: 6px;
+    background-color: #28a745; /* Green color */
+    color: #fff;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+/* Buttons */
+.add-edit-btn {
+    padding: 12px 34px;
+    text-decoration: none;
+    border: none;
+    border-radius: 6px;
+    background-color: #ff8c00; /* Orange color */
+    color: #fff;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.create-employee-btn {
+    padding: 12px 34px;
+    border: none;
+    border-radius: 6px;
+    background-color: #323842; /* Dark Gray */
+    color: #fff;
+    font-size: 18px;
+    cursor: pointer;
+}
+
