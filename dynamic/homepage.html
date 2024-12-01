@@ -30,7 +30,7 @@
                     <input type="text" id="employeeSearchInput" placeholder="Search for employees..." class="search-box" />
                     <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/14bee0bbb12d2f4804a9b9e4e4606e502cebe20d45d7673f5a82548f81b2b830?placeholderIfAbsent=true&apiKey=7d34c187c61d4dedb88861d765416b13" alt="" class="search-icon" />
                 </div>
-                <button type="button" class="employee-search-btn">Search</button>
+                <button type="button" class="employee-search-btn" disabled>Search</button>
                 <button type="button" class="create-employee-btn" onclick="toggleForm('createEmployeeForm')">Create Employee</button>
                 <a href=" {% url 'view_field' %} " class="add-edit-btn">Add/Edit Fields</a>
                 
@@ -39,24 +39,24 @@
     </section>
 
     <!-- Forms Section -->
-     
     <section class="forms-section">
         <div id="createEmployeeForm" class="form-container hidden">
             <h3>Create Employee</h3>
+            
             {% if field_datas %}
 
-            <form class="form-layout">
-
+            <form method="POST" action=" {% url 'add_employee' %} " class="form-layout">
+                {% csrf_token %}
                 {% for field_data in field_datas %}
-                <input type = {% if field_data.field_type == 'Text' %} "text" 
-                              {% elif field_data.field_type == 'Number' %} "number"
-                              {% elif field_data.field_type == 'Date' %} "date"
-                              {% elif field_data.field_type == 'Password' %} "password"
+                <input type = {% if field_data.field_type == 'Text' %} "text" name="{{field_data.form_field}}"
+                              {% elif field_data.field_type == 'Number' %} "number" name="{{field_data.form_field}}"
+                              {% elif field_data.field_type == 'Date' %} "date" name="{{field_data.form_field}}"
+                              {% elif field_data.field_type == 'Password' %} "password" name="{{field_data.form_field}}"
                               {% endif %} 
                               placeholder=" {{ field_data.form_field }} " class="form-control">
                 {% endfor %}
             
-                <button type="button" class="submit-btn">Submit</button>
+                <button type="submit" class="submit-btn">Submit</button>
 
             </form>
             
@@ -66,30 +66,59 @@
         </div>
     </section>
 
+    <!-- success -->
+        
+    {% if messages %}
+    <div id="successMessage" class="message success">
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- success ends -->
+
     <!-- Bootstrap-styled Table -->
     {% if field_datas %}
     <table class="table table-striped">
         <thead>
             <tr>
-                {% for field_data in field_datas %}
-                <th scope="col"> {{ field_data.form_field }} </th>
+                {% for field_label in field_datas %}
+                <th scope="col"> {{ field_label.form_field }} </th>
                 {% endfor %}
+                <th scope="col"> Action </th>
             </tr>
         </thead>
         <tbody>
-            {% for employeeobj in employeeobjs %}
-                <tr>
-                    <th scope="row">{{ employeeobj.employee_number }}</th>
-                    <td>{{ employeeobj.name }}</td>
-                    <td>{{ employeeobj.department }}</td>
-                    <td>{{ employeeobj.role }}</td>
+                {% if employee_datas %}
+                {% for employee_data in employee_datas %}
+                <tr>    
+                    {% for field_elements in employee_data.field_values %}
+                    <td scope="row">
+
+
+                        {{ field_elements.value  }}
+                    </td>
+                    {% endfor %}
+                    <td>
+                        <a href=" {% url 'delete_employee' employee_data.id %} " class="btn btn-danger">Delete</a>
+                    </td>
                 </tr>
-            {% endfor %}
+                {% endfor %}
+                {% else %}
+                <tr>
+                    <td style="text-align: center;" class="text-danger">Employee details are not available...</td>
+                </tr>
+                {% endif %}
         </tbody>
     </table>
     {% else %}
     <h3 style="text-align: center;" class="text-danger">No fields available...</h3>
     {% endif %}
+
+    <div style="padding-left: 45%;">
+        <a href=" {% url 'logout' %} " class="btn btn-primary" >Logout</a>
+    </div>
 
     
 
@@ -105,6 +134,12 @@
             const section = document.getElementById(sectionId);
             section.classList.toggle('hidden');
         }
+        setTimeout(function() {
+            var message = document.getElementById('successMessage');
+            if (message) {
+                message.classList.add('hidden');
+            }
+        }, 2000);
     </script>
 </body>
 

@@ -60,3 +60,18 @@ button {
   color: #007BFF;
   text-decoration: none;
 }
+
+.message {
+  padding: 10px 15px;
+  margin: 20px 0;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+.message.success {
+  color: #155724;
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+}
+.hidden {
+  display: none;
+}

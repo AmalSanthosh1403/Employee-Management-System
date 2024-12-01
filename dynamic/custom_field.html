@@ -44,7 +44,6 @@
                     <td>{{ field.form_field }}</td>
                     <td>{{ field.field_type }}</td>
                     <td>
-                        <a href="" class="btn btn-primary">Edit</a>
                         <a href="{% url 'delete_field' field.id %}" class="btn btn-danger">Delete</a>
 
                     </td>
@@ -95,6 +94,10 @@
             }
         }, 2000);
     </script>
+    <div style="padding-left: 45%;">
+    <a href=" {% url 'homepage' %} " class="btn btn-primary" >Go Back</a>
+    </div>
+
 </body>
 
 </html>
